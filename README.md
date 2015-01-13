@@ -28,7 +28,7 @@ Install Asciidoctorj as module
     ${WILDFLY_HOME}/bin/jboss-cli.sh --connect
     module add \
      --name=org.asciidoctor \
-     --module-xml=/tmp/module.xml
+     --module-xml=/tmp/module.xml \
      --resources=${PLUGIN_HOME}/target/dependency/asciidoctorj-1.5.2.jar,${PLUGIN_HOME}/target/dependency/jcommander-1.35.jar,${PLUGIN_HOME}/target/dependency/jruby-complete-1.7.16.1.jar \
      --resource-delimiter=,
 
