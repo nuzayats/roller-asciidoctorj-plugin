@@ -32,9 +32,9 @@ Install Asciidoctorj as module
      --resources=${PLUGIN_HOME}/target/dependency/asciidoctorj-1.5.2.jar,${PLUGIN_HOME}/target/dependency/jcommander-1.35.jar,${PLUGIN_HOME}/target/dependency/jruby-complete-1.7.16.1.jar \
      --resource-delimiter=,
 
-Set dependency to Asciidoctorj for Roller
+Add dependency to Asciidoctorj at ${ROLLER_HOME}/META-INF/MANIFEST.MF (make sure the file is ended with a line break)
 
-    echo -e 'Dependencies: org.asciidoctor\n' >> ${ROLLER_HOME}/META-INF/MANIFEST.MF
+    Dependencies: org.asciidoctor
 
 Add FQCN of the plugin into your roller-custom.properties
 
