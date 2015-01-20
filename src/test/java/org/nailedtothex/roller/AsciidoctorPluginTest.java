@@ -1,6 +1,14 @@
 package org.nailedtothex.roller;
 
 import org.junit.Test;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -33,4 +41,26 @@ public class AsciidoctorPluginTest {
         assertThat(instance.render(null, input), equalTo(expected));
     }
 
+    @Test
+    public void testSubstringAfter() throws Exception {
+        String expected = "imagesdir";
+        String input = "attributes.imagesdir";
+        assertThat(AsciidoctorPlugin.substringAfter(input, "attributes."), equalTo(expected));
+    }
+
+    @Test
+    public void testParseOptions() throws Exception {
+        Map<String, Object> expected = new HashMap<>();
+        Map<String, Object> expectedAttributes = new HashMap<>();
+        expectedAttributes.put("imagesdir", "/somewhere/img");
+        expectedAttributes.put("backend", "html");
+        expected.put("template_dirs", "/tmp/somewhere");
+        expected.put("attributes", expectedAttributes);
+        
+        try (InputStream is = AsciidoctorPluginTest.class.getResourceAsStream("/asciidoctor_for_test.properties");
+             Reader r = new InputStreamReader(is, Charset.forName("UTF-8"))) {
+            final Map<String, Object> actual = AsciidoctorPlugin.parseOptions(r);
+            assertThat(actual, equalTo(expected));
+        }
+    }
 }
