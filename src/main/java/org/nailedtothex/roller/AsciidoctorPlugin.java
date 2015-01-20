@@ -66,7 +66,7 @@ public class AsciidoctorPlugin implements WeblogEntryPlugin {
                 return Collections.unmodifiableMap(parseOptions(r, args));
             }
         } catch (IOException e) {
-            log.debug("error during loading " + OPTIONS_PATH, e);
+            log.error("error during loading " + OPTIONS_PATH, e);
             return Collections.emptyMap();
         }
     }
