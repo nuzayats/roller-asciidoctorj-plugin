@@ -53,6 +53,12 @@ I've not tested yet but just copy dependencies into your Roller deployment inste
        ${PLUGIN_HOME}/target/dependency/jruby-complete-1.7.16.1.jar \
        ${ROLLER_HOME}/WEB-INF/lib
 
+### How to set options/attributes
+
+The plugin loads that from a file named asciidoctor.properties in the root of classpath. for example you can specify imagesdir like following:
+
+    attributes.imagesdir=/somewhere/img
+
 ### Notes
 
 - More information can be found at [author's blog](http://www.nailedtothex.org/roller/)
