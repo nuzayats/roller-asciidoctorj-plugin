@@ -1,5 +1,6 @@
 package org.nailedtothex.roller;
 
+import org.apache.roller.weblogger.pojos.Weblog;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -14,22 +15,22 @@ import static org.hamcrest.Matchers.*;
 
 public class AsciidoctorPluginTest {
 
-    AsciidoctorPlugin instance = new AsciidoctorPlugin();
-
-    @Test
-    public void testInit() throws Exception {
-        instance.init(null);
-    }
+    private static final Weblog WEBLOG = new Weblog() {
+        @Override
+        public String getHandle() {
+            return "kyle";
+        }
+    };
 
     @Test
     public void testGetDescription() throws Exception {
-        assertThat(instance.getDescription(),
+        assertThat(new AsciidoctorPlugin().getDescription(),
                 equalTo("Allows use of Asciidoc formatting to easily generate HTML."));
     }
 
     @Test
     public void testGetName() throws Exception {
-        assertThat(instance.getName(), equalTo("Asciidoc Syntax"));
+        assertThat(new AsciidoctorPlugin().getName(), equalTo("Asciidoc Syntax"));
     }
 
     @Test
@@ -38,6 +39,8 @@ public class AsciidoctorPluginTest {
         String expected = "<div class=\"paragraph\">\n" +
                 "<p>Hello World!</p>\n" +
                 "</div>";
+        final AsciidoctorPlugin instance = new AsciidoctorPlugin();
+        instance.init(WEBLOG);
         assertThat(instance.render(null, input), equalTo(expected));
     }
 
@@ -52,14 +55,14 @@ public class AsciidoctorPluginTest {
     public void testParseOptions() throws Exception {
         Map<String, Object> expected = new HashMap<>();
         Map<String, Object> expectedAttributes = new HashMap<>();
-        expectedAttributes.put("imagesdir", "/somewhere/img");
+        expectedAttributes.put("imagesdir", "/roller/kyle/mediaresource");
         expectedAttributes.put("backend", "html");
         expected.put("template_dirs", "/tmp/somewhere");
         expected.put("attributes", expectedAttributes);
-        
+
         try (InputStream is = AsciidoctorPluginTest.class.getResourceAsStream("/asciidoctor_for_test.properties");
              Reader r = new InputStreamReader(is, Charset.forName("UTF-8"))) {
-            final Map<String, Object> actual = AsciidoctorPlugin.parseOptions(r);
+            final Map<String, Object> actual = AsciidoctorPlugin.parseOptions(r, new Object[]{"kyle"});
             assertThat(actual, equalTo(expected));
         }
     }

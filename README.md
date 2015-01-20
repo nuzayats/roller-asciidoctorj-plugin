@@ -57,7 +57,9 @@ I've not tested yet but just copy dependencies into your Roller deployment inste
 
 The plugin loads that from a file named asciidoctor.properties in the root of classpath. for example you can specify imagesdir like following:
 
-    attributes.imagesdir=/somewhere/img
+    attributes.imagesdir=/roller/{0}/mediaresource
+
+{0} will be replaced by the handle of each weblog.
 
 ### Notes
 
