@@ -26,7 +26,8 @@ public class AsciidoctorPlugin implements WeblogEntryPlugin {
     private static final String DESCRIPTION = StringEscapeUtils.escapeJavaScript(
             "Allows use of Asciidoc formatting to easily generate HTML.");
     private static final String OPTIONS_PATH = "/asciidoctor.properties";
-    private static final String ATTRIBUTES_PREFIX = "attributes.";
+    private static final String ATTRIBUTES = "attributes";
+    private static final String ATTRIBUTES_KEY_PREFIX = ATTRIBUTES + ".";
     private static final Map<String, Object> OPTIONS;
 
     static {
@@ -78,13 +79,13 @@ public class AsciidoctorPlugin implements WeblogEntryPlugin {
         Map<String, Object> options = new HashMap<>(props.size());
         Map<String, Object> attributes = new HashMap<>(props.size());
         for (String key : props.stringPropertyNames()) {
-            if (key.startsWith(ATTRIBUTES_PREFIX)) {
-                attributes.put(substringAfter(key, ATTRIBUTES_PREFIX), props.getProperty(key));
+            if (key.startsWith(ATTRIBUTES_KEY_PREFIX)) {
+                attributes.put(substringAfter(key, ATTRIBUTES_KEY_PREFIX), props.getProperty(key));
                 continue;
             }
             options.put(key, props.getProperty(key));
         }
-        options.put("attributes", attributes);
+        options.put(ATTRIBUTES, attributes);
         return options;
     }
 
