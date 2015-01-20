@@ -31,7 +31,7 @@ public class AsciidoctorPlugin implements WeblogEntryPlugin {
 
     static {
         OPTIONS = instantiateOptions();
-        log.info("options: " + OPTIONS);
+        log.info("options: {}", OPTIONS);
     }
     
     @Override
@@ -60,7 +60,7 @@ public class AsciidoctorPlugin implements WeblogEntryPlugin {
     static Map<String, Object> instantiateOptions() {
         try (InputStream is = AsciidoctorPlugin.class.getResourceAsStream(OPTIONS_PATH)) {
             if (is == null) {
-                log.info("no " + OPTIONS_PATH + " was present");
+                log.info("no {} was present", OPTIONS_PATH);
                 return Collections.emptyMap();
             }
             try (Reader r = new InputStreamReader(is, Charset.forName("UTF-8"))) {
