@@ -10,7 +10,7 @@ Roller Asciidoctorj Plugin
 
 Install Apache Roller
 
-    git clone https://github.com/apache/roller.git
+    svn co http://svn.apache.org/repos/asf/roller/trunk roller
     cd roller; mvn clean install
 
 Build roller-asciidoctorj-plugin
